@@ -4,7 +4,9 @@ package com.mami.luv2codes.controller;
 import com.mami.luv2codes.entity.Student;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,20 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class StudentRestController {
 
+  private List<Student> theStudents;
+
+  @PostConstruct
+  public void init() {
+
+   theStudents = Arrays.asList(
+        new Student("asd","fgh"),
+        new Student("rty","fjkl"),
+        new Student("hjj","ytu"),
+        new Student("hjk","yuiop") );
+
+  };
+
 
   @GetMapping("/students")
   public  List<Student> getStudents() {
 
-    List<Student> list = Arrays.asList(
-        new Student("asd","fgh"),
-        new Student("rty","fjkl"),
-        new Student("hjj","ytu"),
-        new Student("hjk","yuiop")
+   return theStudents;
 
-    );
+  }
 
-    System.out.println(list);
+  @GetMapping("/students/{id}")
+  public Student getById(@PathVariable int id) {
 
-    return list;
+    return theStudents.get(id);
   }
 }
