@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class StudentRestExceptioHandler {
+public class StudentRestExceptionHandler {
 
   @ExceptionHandler
   public ResponseEntity<StudentResponseError> handleException(StudentNotFoundException e) {
