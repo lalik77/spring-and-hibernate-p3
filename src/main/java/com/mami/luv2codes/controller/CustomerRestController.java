@@ -4,6 +4,7 @@ import com.mami.luv2codes.entity.Customer;
 import com.mami.luv2codes.error.CustomerNotFoundException;
 import com.mami.luv2codes.service.CustomerService;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,5 +66,20 @@ public class CustomerRestController {
     customerService.saveCustomer(theCustomer);
 
     return theCustomer;
+  }
+
+  @DeleteMapping("/customers/{id}")
+  public String delete(@PathVariable("id") int id) {
+
+    Customer temp = customerService.getCustomer(id);
+
+    if(temp == null) {
+      throw new CustomerNotFoundException("Customer id not found : " + id);
+    }
+
+    customerService.deleteCustomer(id);
+
+    return "Deleted customer with id -" + id;
+
   }
 }
